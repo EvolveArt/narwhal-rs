@@ -1,0 +1,33 @@
+[workspace]
+resolver = "2"
+members = ["crates/node"]
+
+[workspace.package]
+version = "0.0.1"
+authors = ["0xevolve <matthias@pragma.build>"]
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/EvolveArt/narwhal-rs"
+
+[profile.release]
+# debug = 1 means line charts only, which is minimum needed for good stack traces
+debug = 1
+# Write debug info into a separate file.
+split-debuginfo = 'packed'
+# Without stripping, sui binary size would be > 1GB.
+strip = 'debuginfo'
+# Exit process with SIGABRT when any thread panics
+panic = 'abort'
+
+[workspace.dependencies]
+anyhow = "1.0.71"
+tokio = { version = "1", features = ["full"] }
+
+
+# Crypto
+fastcrypto = { git = "https://github.com/MystenLabs/fastcrypto", rev = "3366c26a746b72707572c4f3f05915e20d5c16c2" }
+fastcrypto-tbls = { git = "https://github.com/MystenLabs/fastcrypto", rev = "3366c26a746b72707572c4f3f05915e20d5c16c2" }
+fastcrypto-zkp = { git = "https://github.com/MystenLabs/fastcrypto", rev = "3366c26a746b72707572c4f3f05915e20d5c16c2", package = "fastcrypto-zkp" }
+fastcrypto-vdf = { git = "https://github.com/MystenLabs/fastcrypto", rev = "3366c26a746b72707572c4f3f05915e20d5c16c2", features = [
+    "experimental",
+] }
